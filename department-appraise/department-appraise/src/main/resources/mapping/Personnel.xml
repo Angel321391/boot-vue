@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.uchung.departmentappraise.mapper.OtherMapper">
+    <resultMap id="BaseResultMap" type="com.uchung.departmentappraise.model.Other">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="birthday" property="birthday" jdbcType="TIMESTAMP"/>
+        <result column="sex" property="sex" jdbcType="DECIMAL"/>
+        <result column="tel" property="tel" jdbcType="VARCHAR"/>
+        <result column="address" property="address" jdbcType="VARCHAR"/>
+        <result column="status" property="isDelete" jdbcType="BIT"/>
+        <result column="is_delete" property="isDelete" jdbcType="BIT"/>
+        <result column="join_date" property="join_date" jdbcType="TIMESTAMP"/>
+        <result column="create_date" property="create_date" jdbcType="TIMESTAMP"/>
+        <result column="update_date" property="update_date" jdbcType="TIMESTAMP"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    id, name, birthday, sex, tel,address,status,is_delete,join_date,create_date,update_date
+  </sql>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from personnel
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <select id="queryPage" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+    select * from personnel
+			order by id desc
+			limit #{startRows},5
+  </select>
+    <select id="getRowCount" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+    select count(*) from user
+  </select>
+    <insert id="insertPerson" parameterType="com.uchung.departmentappraise.mapper.Personnel">
+insert into personnel(id,name,birthday,sex,tel,address,status,is_delete,join_date,create_date,update_date)values(#{id},#{name},#{birthday},#{sex},#{tel},#{address},#{status},#{is_delete},#{join_date},#{create_date},#{update_date})
+  </insert>
+    <update id="update" parameterType="com.uchung.departmentappraise.mapper.Personnel">
+    update personnel set id=#{id},name=#{name},birthday=#{birthday},sex=#{sex},tel=#{tel},address=#{address},status#{status},is_delete=#{is_delete},join_date=#{join_date},create_date=#{create_date},update_date=#{create_date} where id=#{id}
+  </update>
+    <delete id="delete" parameterType="java.lang.Integer">
+    delete from personnel where id=#{id}
+  </delete>
+</mapper>

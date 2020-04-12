@@ -1,0 +1,45 @@
+1.目录结构
+api (网络请求接口包)
+router (路由配置包)
+store (Vuex 状态管理包)
+utils (工具包)
+views (vue 视图包，存放所有 vue 代码，可根据功能模块进行相应分包)
+
+2.编写页面相关代码
+
+3.路由
+页面写好了，我们需要依次显示这三个页面，这里我们统一使用路由来管理显示页面.
+  3.1创建路由的配置文件
+      在router 文件夹下创建一个 index.js 文件，添加内容
+  3.2将路由添加到程序入口
+  路由配置文件写好，我们需要把他引入到 main.js 中，在项目的 src 目录根节点下，找到 main.js，添加内容
+  3.3配置路由的出入口
+     现在路由已经完全引入到项目了，但是路由还需要一个出入口，这个出入口用来告诉路由将路由的内容显示在这里。上面 main.js 配置的第一个 vue 显示页面为 App.vue ，因此我们修改 App.vue 内容
+  3.4.路由跳转
+     在 login.vue 中可以使用 this.$router.push({path: "路径"}) 来跳转到指定路径的路由组件中
+
+4.使用 Vuex + Axios 方式进行网络请求
+  4.1.Axios
+       axios 是一个网络请求构架，官方推荐使用这种方式进行 http 的请求。
+
+    4.1.1在utils包下封装一个请求工具类request.js
+    4.1.2在api文件夹下创建一个登录API文件：login.js
+  4.2使用Vuex封装axios
+     Vuex 是一个状态管理构架
+
+     4.2.1封装 Vuex 中的 module
+       在 store 文件夹下创建一个 modules 文件夹，然后在此文件夹下创建一个 user.js 文件
+
+       1.首先引入 login 接口，之后使用登录接口进行网络请求。
+
+       2.定义一个 名为 Login 的 action 方法，Vue 组件通过 this.$store.dispatch("Login") 调用
+
+       3.Promise，这个类很有意思，
+       官方的解释是“store.dispatch 可以处理被触发的 action 的处理函数返回的 Promise，并且 store.dispatch 仍旧返回 Promise”。
+       这话的意思组件中的 dispatch 返回的仍是一个 Promise 类，因此推测 Promise 中的两个方法 resolve() 与 reject() 分别对应 dispatch 中的 then 与 catch。
+     4.2.2创建 Vuex
+       在 store 文件夹下创建一个 index.js 文件
+     4.2.3将 Vuex 添加到 main.js 文件
+       修改之前的main.js文件
+
+       重新运行项目
